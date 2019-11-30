@@ -50,5 +50,7 @@ public class Principal {
         Cachorro cachorrinho = new Cachorro();
 
         cachorrinho.estaBrincando(true);
+
+        cachorrinho.animalSaudavel("Firme como uma pedra");
     }
 }

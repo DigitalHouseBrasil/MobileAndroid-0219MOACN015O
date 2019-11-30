@@ -1,6 +1,6 @@
 package br.com.digitalhouse.objetos;
 
-public abstract class Animal {
+public abstract class Animal implements Saudavel, Informacoes {
 
     //Atributos
     private int idadeAnimal;
