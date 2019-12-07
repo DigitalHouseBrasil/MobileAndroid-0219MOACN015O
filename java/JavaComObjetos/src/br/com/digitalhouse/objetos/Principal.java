@@ -1,14 +1,22 @@
 package br.com.digitalhouse.objetos;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class Principal {
 
     public static void main(String[] args){
 
         //Criação dos objetos utilizando os contrutores declarados na classe Animal
-        Animal animalMamifero = new Animal(20);
-        Animal animalDomestico = new Animal();
-        Animal animalSelvagem = new Animal(23, "Bidu");
-        Animal animal = new Animal(23, "Teste", true);
+        Animal animalMamifero = new Cachorro();
+        Animal animalDomestico = new Cachorro();
+        Animal animalSelvagem = new Golden();
+        Animal animal = new Golden();
+
+        Cachorro cachorro = new Cachorro();
+
+        animalMamifero.getIdadeAnimal();
+        cachorro.getIdadeAnimal();
 
         //Modificação do valor da idade do animal para 100
         animalDomestico.setIdadeAnimal(100);
@@ -21,9 +29,14 @@ public class Principal {
         animal.estaBrincando(false);
 
         //Criação do objeto
-        Animal cachorroBidu = new Animal();
+        Animal cachorroBidu = new Cachorro();
         //Alteração do valor do nome do objeto cachorroBidu para Bidu Santos
-        cachorroBidu.setNomeAnimal("Bidu Santos");
+        try {
+            cachorroBidu.setNomeAnimal("Bidu Santos"+new SimpleDateFormat( "yyyyMMdd" ).parse( "20100520" )
+            );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         //Criação do objeto do tipo pessoa
         Pessoa joao = new Pessoa();
@@ -34,6 +47,10 @@ public class Principal {
         //Mostrando o nome do cachorro a partir do objeto joao
         System.out.println(joao.getAnimalDomestico().getNomeAnimal());
 
+        Cachorro cachorrinho = new Cachorro();
 
+        cachorrinho.estaBrincando(true);
+
+        cachorrinho.animalSaudavel("Firme como uma pedra");
     }
 }

@@ -1,6 +1,6 @@
 package br.com.digitalhouse.objetos;
 
-public class Animal {
+public abstract class Animal implements Saudavel, Informacoes {
 
     //Atributos
     private int idadeAnimal;
@@ -63,6 +63,8 @@ public class Animal {
     public void estaBrincando(boolean estaBrincando) {
         System.out.println("O animal está brincando?" + estaBrincando);
     }
+
+    public abstract int idadeDoAnimalFofo(int idade);
 
 
 }
