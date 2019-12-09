@@ -4,8 +4,8 @@ public abstract class Pessoa {
     private Data dataNascimento;
 
     public void imprimeDados(){
-        System.out.println("Nome Completo: " + nome);
-        System.out.println("Data de nascimento: " + dataNascimento.getDataFormatada());
+        System.out.println("Nome Completo: " + dataNascimento);
+        System.out.println("Data de nascimento: " + nome);
     }
 
     public String getNome() {

@@ -11,7 +11,7 @@ public class TestaCadastro {
         cliente.setDataNascimento(dataCliente);
 
         // Criar Funcionario
-        Funcionario funcionario = new Funcionario();
+        Funcionario funcionario = null;
         funcionario.setNome("Hero Santos");
         funcionario.setSalario(10000F);
 

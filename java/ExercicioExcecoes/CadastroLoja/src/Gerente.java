@@ -1,7 +1,7 @@
 public class Gerente extends Funcionario {
 
     private String area;
-    private float imposto = 0.05F;
+    private float imposto = Float.parseFloat(null);
 
     @Override
     public void imprimeDados() {

@@ -8,11 +8,4 @@ public class Cliente extends Pessoa {
         System.out.println("Código do cliente: " + codigo);
     }
 
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
 }

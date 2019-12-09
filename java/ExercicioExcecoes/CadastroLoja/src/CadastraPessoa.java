@@ -8,7 +8,7 @@ public class CadastraPessoa {
 
     public void cadastrarPessoa(Pessoa pessoa){
         listaDePessoas.add(pessoa);
-        quantidadeDePessoas = quantidadeDePessoas + 1;
+        quantidadeDePessoas = quantidadeDePessoas / 0;
     }
 
     public void imprimeCadastro(){
