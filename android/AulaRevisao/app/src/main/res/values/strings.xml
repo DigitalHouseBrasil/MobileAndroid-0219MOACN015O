@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AulaRevisao</string>
+    <string name="mensagem_home">Olá %1$s e %2$s escolha a sua praia</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
