@@ -23,8 +23,10 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import br.digitalhouse.menuscardview.R;
+import br.digitalhouse.menuscardview.interfaces.ContatoListener;
+import br.digitalhouse.menuscardview.model.Contato;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity  {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -84,7 +86,7 @@ public class MenuActivity extends AppCompatActivity {
                 } else if (id == R.id.nav_gallery) {
 
                     //Faço o replace do fragmento de Galeria quando clicar no botão de Galeria
-                    replaceFragment(new GaleriaFragment());
+                    replaceFragment(new ContatosFragment());
                     Snackbar.make(toolbar, "GALERIA", Snackbar.LENGTH_LONG).show();
                 }
 

@@ -12,23 +12,28 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.digitalhouse.menuscardview.R;
 import br.digitalhouse.menuscardview.adapter.ContatoRecyclerViewAdapter;
+import br.digitalhouse.menuscardview.interfaces.ContatoListener;
 import br.digitalhouse.menuscardview.model.Contato;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements ContatoListener {
     //Declaração do componente recyclerview que foi adicionado no layout do fragment
     private RecyclerView recyclerViewContatos;
     //Declaração do adapter
     private ContatoRecyclerViewAdapter adapter;
+
+    //Declaração da contante
+    public static final String CONTATO_CHAVE = "contato";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -45,7 +50,7 @@ public class HomeFragment extends Fragment {
         recyclerViewContatos = view.findViewById(R.id.recycler_view_contatos);
 
         //Inicialização do adapter passando passando pelo construtor da classe o método que retorna uma lista de contatos
-        adapter = new ContatoRecyclerViewAdapter(getListaContatos());
+        adapter = new ContatoRecyclerViewAdapter(getListaContatos(), this );
 
         //Adicionamos ao componente o adapter
         recyclerViewContatos.setAdapter(adapter);
@@ -86,4 +91,21 @@ public class HomeFragment extends Fragment {
         return contatos;
     }
 
+    //Sobrescrita do metodo da interface que irá enviar o contato clicado para o fragmento de contato
+    @Override
+    public void enviaContato(Contato contato) {
+        Fragment fragment = new ContatosFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(CONTATO_CHAVE, contato);
+        fragment.setArguments(bundle);
+
+        replaceFragment(fragment);
+
+    }
+
+    private void replaceFragment(Fragment fragment){
+        getActivity().getSupportFragmentManager()
+                .beginTransaction().replace(R.id.container, fragment)
+                .commit();
+    }
 }

@@ -8,16 +8,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import br.digitalhouse.menuscardview.R;
+import br.digitalhouse.menuscardview.interfaces.ContatoListener;
 import br.digitalhouse.menuscardview.model.Contato;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ContatoRecyclerViewAdapter extends RecyclerView.Adapter<ContatoRecyclerViewAdapter.ViewHolder> {
 
     //Declaração do atributo de lista de contatos
     private List<Contato> contatos;
 
+    //Declaração do atributo do tipo da interface
+    private ContatoListener listener;
+
     //Construtor especifico da classe ContatoRecyclerViewAdapter e inicialização do atributo
-    public ContatoRecyclerViewAdapter(List<Contato> listaContatos){
+    public ContatoRecyclerViewAdapter(List<Contato> listaContatos, ContatoListener listener){
         this.contatos = listaContatos;
+        this.listener = listener;
     }
 
     //Método responsável por inflar o layout do item
@@ -34,8 +40,16 @@ public class ContatoRecyclerViewAdapter extends RecyclerView.Adapter<ContatoRecy
     // para passar para o viewHolder setar as informações na view
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Contato contato = contatos.get(position);
+        final Contato contato = contatos.get(position);
         holder.onBind(contato);
+
+        //habilitando o click no item da lista preferenciando ometodo da interface passando o contato como parametro
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.enviaContato(contato);
+            }
+        });
     }
 
     //Método que retorna o tamanho da lista
