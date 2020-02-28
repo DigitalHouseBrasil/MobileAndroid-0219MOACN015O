@@ -1,4 +1,4 @@
-package br.digitalhouse.menuscardview.model;
+package br.digitalhouse.menuscardview.home.contato.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -1,4 +1,4 @@
-package br.digitalhouse.menuscardview.adapter;
+package br.digitalhouse.menuscardview.home.contato.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import br.digitalhouse.menuscardview.R;
-import br.digitalhouse.menuscardview.interfaces.ContatoListener;
-import br.digitalhouse.menuscardview.model.Contato;
-import de.hdodenhof.circleimageview.CircleImageView;
+import br.digitalhouse.menuscardview.home.contato.interfaces.ContatoListener;
+import br.digitalhouse.menuscardview.home.contato.model.Contato;
 
 public class ContatoRecyclerViewAdapter extends RecyclerView.Adapter<ContatoRecyclerViewAdapter.ViewHolder> {
 

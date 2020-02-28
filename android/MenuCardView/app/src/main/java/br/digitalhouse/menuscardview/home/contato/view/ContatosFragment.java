@@ -1,4 +1,4 @@
-package br.digitalhouse.menuscardview.views;
+package br.digitalhouse.menuscardview.home.contato.view;
 
 
 import android.os.Bundle;
@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import br.digitalhouse.menuscardview.R;
-import br.digitalhouse.menuscardview.model.Contato;
+import br.digitalhouse.menuscardview.home.contato.model.Contato;
 
-import static br.digitalhouse.menuscardview.views.HomeFragment.CONTATO_CHAVE;
+import static br.digitalhouse.menuscardview.home.HomeFragment.CONTATO_CHAVE;
 
 
 /**

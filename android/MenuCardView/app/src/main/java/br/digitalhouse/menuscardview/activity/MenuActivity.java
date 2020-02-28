@@ -1,8 +1,7 @@
-package br.digitalhouse.menuscardview.views;
+package br.digitalhouse.menuscardview.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import android.view.MenuItem;
 
@@ -23,8 +22,9 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import br.digitalhouse.menuscardview.R;
-import br.digitalhouse.menuscardview.interfaces.ContatoListener;
-import br.digitalhouse.menuscardview.model.Contato;
+import br.digitalhouse.menuscardview.galeria.view.GaleriaFragment;
+import br.digitalhouse.menuscardview.home.HomeFragment;
+import br.digitalhouse.menuscardview.settings.SettingsActivity;
 
 public class MenuActivity extends AppCompatActivity  {
 
@@ -44,6 +44,8 @@ public class MenuActivity extends AppCompatActivity  {
 
         //Inicializa o drawer
         drawer = findViewById(R.id.drawer_layout);
+
+        replaceFragment(new HomeFragment());
 
         //Cria uma nova instância do NavigationView e inicializa
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -77,17 +79,11 @@ public class MenuActivity extends AppCompatActivity  {
 
                 //Verifica se o id recebido é igual ao do layout e realiza uma ação
                 if (id == R.id.nav_home) {
-
                     //Faço o replace do fragmento de Home quando clicar no botão de Home
                     replaceFragment(new HomeFragment());
-                    Snackbar.make(toolbar, "HOME", Snackbar.LENGTH_LONG).show();
-
 
                 } else if (id == R.id.nav_gallery) {
-
-                    //Faço o replace do fragmento de Galeria quando clicar no botão de Galeria
-                    replaceFragment(new ContatosFragment());
-                    Snackbar.make(toolbar, "GALERIA", Snackbar.LENGTH_LONG).show();
+                    replaceFragment(new GaleriaFragment());
                 }
 
                 //chama a ação de close do drawerLayout e mover a gaveta para direita
@@ -126,8 +122,8 @@ public class MenuActivity extends AppCompatActivity  {
         //Verifica se o id recebido é igual ao do layout e realiza uma ação
         if (id == R.id.action_settings) {
 
-            //Mostra um Toast
-            Toast.makeText(this, "Settings", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(MenuActivity.this, SettingsActivity.class));
+
             return true;
         }
 
