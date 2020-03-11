@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.view.View;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import br.digitalhouse.agendatelefonicabd.R;
 import br.digitalhouse.agendatelefonicabd.adapter.ContatoAdapter;
 import br.digitalhouse.agendatelefonicabd.data.ContatoDataBase;
@@ -67,7 +71,9 @@ public class MainActivity extends AppCompatActivity implements ContatoListener {
                 public void run() {
                     Contato contato = contatoDAO.getContatoNome(nomeRecuperado);
 
-                    contatoDAO.deletaContato(contato);
+                    if (contato != null) {
+                        contatoDAO.deletaContato(contato);
+                    }
                 }
             }).start();
         }
@@ -100,23 +106,17 @@ public class MainActivity extends AppCompatActivity implements ContatoListener {
 
     private void pegaDadosBanco(final ContatoAdapter adapter) {
 
-        new Thread(new Runnable() {
-
+        contatoDAO.getTodosContatos().observe(MainActivity.this, new Observer<List<Contato>>() {
             @Override
-            public void run() {
-                contatoDAO.getTodosContatos().observe(MainActivity.this, new Observer<List<Contato>>() {
+            public void onChanged(final List<Contato> novaListaContatos) {
+                runOnUiThread(new Runnable() {
                     @Override
-                    public void onChanged(final List<Contato> novaListaContatos) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                adapter.atualizaLista(novaListaContatos);
-                            }
-                        });
+                    public void run() {
+                        adapter.atualizaLista(novaListaContatos);
                     }
                 });
             }
-        }).start();
+        });
     }
 
     @Override
