@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">PadraoArquitetura</string>
+    <string name="quantidade_em_estoque">quantidade em estoque</string>
+    <string name="nome">nome</string>
+    <string name="quantidade">quantidade</string>
 </resources>

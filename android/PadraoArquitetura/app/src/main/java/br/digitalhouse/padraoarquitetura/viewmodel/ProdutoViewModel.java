@@ -2,22 +2,15 @@ package br.digitalhouse.padraoarquitetura.viewmodel;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
 import java.util.List;
-
 import br.digitalhouse.padraoarquitetura.model.Produto;
 import br.digitalhouse.padraoarquitetura.repository.ProdutoRepository;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class ProdutoViewModel extends AndroidViewModel {
@@ -25,6 +18,8 @@ public class ProdutoViewModel extends AndroidViewModel {
     private MutableLiveData<List<Produto>> mutableProduto = new MutableLiveData<>();
     public LiveData<List<Produto>> liveDataProduto = mutableProduto;
     private CompositeDisposable disposable = new CompositeDisposable();
+    private MutableLiveData<String> errorMutable = new MutableLiveData<>();
+    public LiveData<String> erro = errorMutable;
 
     public ProdutoViewModel(@NonNull Application application) {
         super(application);
@@ -39,9 +34,29 @@ public class ProdutoViewModel extends AndroidViewModel {
                                     mutableProduto.setValue(produto);
                                 },
                                 throwable -> {
-                                    Log.i("Error", throwable.getMessage());
+                                    errorMutable.setValue(throwable.getMessage());
                                 })
         );
+    }
+
+    public void insereProduto(Produto produto, Context context) {
+        new Thread((() -> {
+            if (produto != null) {
+                repository.insereProduto(produto, context);
+            }
+        }
+        )).start();
+    }
+
+    public void apagaProduto(String nome, Context context) {
+        new Thread(() -> {
+            if (!nome.isEmpty()) {
+                Produto produto = repository.retornaProdutoPorNome(nome, context);
+                if (produto != null) {
+                    repository.apagaProduto(produto, context);
+                }
+            }
+        }).start();
     }
 
     @Override

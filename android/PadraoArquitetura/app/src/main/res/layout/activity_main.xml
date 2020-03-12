@@ -21,7 +21,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="nome" />
+            android:hint="@string/nome" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -40,8 +40,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="quantidade em estoque"
-            android:inputType="numberDecimal"/>
+            android:hint="@string/quantidade_em_estoque"
+            android:inputType="numberDecimal"
+            android:maxLength="10"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

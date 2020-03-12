@@ -6,10 +6,13 @@ import androidx.room.PrimaryKey;
 
 import java.util.List;
 
+//A anotação @Entity determina que a nossa classe será uma tabela
 @Entity(tableName = "produtos")
 public class Produto {
 
+    //A anotação @PrimaryKey determina que o atributo id é uma chave-primaria da tabela onde seu valor será gerado automaticamente
     @PrimaryKey(autoGenerate = true)
+    //A anotação @ColumnInfo determina que o atributo será uma coluna da tabela
     @ColumnInfo(name = "idProduto")
     private int id;
 

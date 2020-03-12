@@ -5,10 +5,14 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-
 import br.digitalhouse.padraoarquitetura.model.Produto;
 
+//Antoção @Database que determina que essa classe será reponsavél pela criação e verificação do nosso banco de dados
+//Dentro dessa anotação declaramos quais sao as classes modelos que estão anotadas como entidades,
+//declaramos também a versão do nosso banco de dados e o exportSchema
 @Database(entities = {Produto.class}, version = 1, exportSchema = false)
+//A anotação @TypeConverters serve para determinarmos quais sao as classes que serão responsáveis pelos metodos
+//de conversão de dados dentro do nosso banco de dados
 @TypeConverters(ProdutoConverter.class)
 public abstract class ProdutoDataBase extends RoomDatabase {
 

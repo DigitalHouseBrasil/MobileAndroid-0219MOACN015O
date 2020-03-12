@@ -48,9 +48,13 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
         return listaProdutos.size();
     }
 
+    //Método que irá receber uma nova lista de produtos e atualizar a lista da classe adapter
     public void atualizaListaProduto(List<Produto> novaListaProduto){
+        //limpa a lista da nossa classe
         this.listaProdutos.clear();
+        //atribui para a lista do adaper a nova lista que está sendo recebida como parametro
         this.listaProdutos = novaListaProduto;
+        //notifica as mudanças
         notifyDataSetChanged();
     }
 
@@ -66,7 +70,9 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
 
         public void onBind(Produto produto) {
             nome.setText(produto.getNome());
-            quantidade.setText(produto.getQuantidade());
+            //Converte um int em String
+            String quantidadeTexto = String.valueOf(produto.getQuantidade());
+            quantidade.setText(quantidadeTexto);
         }
     }
 }
