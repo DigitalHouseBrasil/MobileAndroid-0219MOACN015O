@@ -4,8 +4,11 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+
 import java.util.List;
+
 import br.digitalhouse.padraoarquitetura.model.Produto;
+import br.digitalhouse.padraoarquitetura.model.ProdutoResponse;
 import io.reactivex.Flowable;
 
 /// A anotação @Dao determina que a interface irá conter os métodos de ação dentro do BD

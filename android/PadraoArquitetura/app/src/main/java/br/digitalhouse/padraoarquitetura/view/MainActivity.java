@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements ProdutoListener {
         recyclerViewProdutos.setAdapter(adapter);
 
         //fazemos a chamada do método atraves do viewmodel
-        viewModel.getTodosProdutos(this);
+        //viewModel.getTodosProdutos();
 
         //observamos as mudanças da llista de produtos
         // passando o proprietario e a lista com as mmudanças
@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements ProdutoListener {
             adapter.atualizaListaProduto(produtos);
         });
 
+        viewModel.recuperaProdutosArquivo();
+
         botaoAdd.setOnClickListener(view -> {
             verificaCamposInsereProduto();
         });
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements ProdutoListener {
             String nome = nomeEdit.getEditText().getText().toString();
 
             //fazemos a chamada do método atraves do viewmodel
-            viewModel.apagaProduto(nome, this);
+            viewModel.apagaProduto(nome);
 
             //Limpamos os textInputLayout
             nomeEdit.getEditText().getText().clear();
@@ -76,21 +78,21 @@ public class MainActivity extends AppCompatActivity implements ProdutoListener {
         String nome = nomeEdit.getEditText().getText().toString();
         String quantidade = quantidadeEdit.getEditText().getText().toString();
 
-        if (!nome.isEmpty() && !quantidade.isEmpty()) {
-            int quantidadeEstoque = Integer.parseInt(quantidade);
-            Produto produto = new Produto(nome, quantidadeEstoque);
-
-            //fazemos a chamada do método atraves do viewmodel
-            viewModel.insereProduto(produto, this);
-
-            //Limpamos os textInputLayout
-            nomeEdit.getEditText().getText().clear();
-            quantidadeEdit.getEditText().getText().clear();
-
-        }else{
-            nomeEdit.setError("Preencha os campos");
-            quantidadeEdit.setError("Preencha os campos");
-        }
+//        if (!nome.isEmpty() && !quantidade.isEmpty()) {
+//            int quantidadeEstoque = Integer.parseInt(quantidade);
+//            Produto produto = new Produto(nome, quantidadeEstoque);
+//
+//            //fazemos a chamada do método atraves do viewmodel
+//            viewModel.insereProduto(produto, this);
+//
+//            //Limpamos os textInputLayout
+//            nomeEdit.getEditText().getText().clear();
+//            quantidadeEdit.getEditText().getText().clear();
+//
+//        }else{
+//            nomeEdit.setError("Preencha os campos");
+//            quantidadeEdit.setError("Preencha os campos");
+//        }
     }
 
     private void initViews() {

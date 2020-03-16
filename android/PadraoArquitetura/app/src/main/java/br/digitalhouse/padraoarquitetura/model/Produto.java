@@ -1,47 +1,50 @@
+
 package br.digitalhouse.padraoarquitetura.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.List;
-
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 //A anotação @Entity determina que a nossa classe será uma tabela
+
 @Entity(tableName = "produtos")
 public class Produto {
 
-    //A anotação @PrimaryKey determina que o atributo id é uma chave-primaria da tabela onde seu valor será gerado automaticamente
-    @PrimaryKey(autoGenerate = true)
-    //A anotação @ColumnInfo determina que o atributo será uma coluna da tabela
-    @ColumnInfo(name = "idProduto")
-    private int id;
+    @Expose
+    private String descricao;
 
+    @Expose
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "idProduto")
+    private Long id;
+
+    @Expose
+    @SerializedName("name")
     @ColumnInfo(name = "nome")
     private String nome;
 
+    @Expose
+    private String preco;
+
+    @Expose
     @ColumnInfo(name = "quantidade")
-    private int quantidade;
+    private String quantidade;
 
-    private List<Produto> produtos;
-
-    public Produto(String nome, int quantidade) {
-        this.nome = nome;
-        this.quantidade = quantidade;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,11 +56,20 @@ public class Produto {
         this.nome = nome;
     }
 
-    public int getQuantidade() {
+    public String getPreco() {
+        return preco;
+    }
+
+    public void setPreco(String preco) {
+        this.preco = preco;
+    }
+
+    public String getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(String quantidade) {
         this.quantidade = quantidade;
     }
+
 }
