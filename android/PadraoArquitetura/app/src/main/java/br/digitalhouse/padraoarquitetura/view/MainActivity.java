@@ -40,9 +40,6 @@ public class MainActivity extends AppCompatActivity implements ProdutoListener {
         recyclerViewProdutos.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewProdutos.setAdapter(adapter);
 
-        //fazemos a chamada do método atraves do viewmodel
-        viewModel.getTodosProdutos(this);
-
         //observamos as mudanças da llista de produtos
         // passando o proprietario e a lista com as mmudanças
         viewModel.liveDataProduto.observe(this, produtos -> {
@@ -50,6 +47,10 @@ public class MainActivity extends AppCompatActivity implements ProdutoListener {
             //atualizamos a lista do adapter
             adapter.atualizaListaProduto(produtos);
         });
+
+        //fazemos a chamada do método atraves do viewmodel
+        viewModel.getTodosProdutos(this);
+        viewModel.pegaOsDadosArquivo();
 
         botaoAdd.setOnClickListener(view -> {
             verificaCamposInsereProduto();
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements ProdutoListener {
         String quantidade = quantidadeEdit.getEditText().getText().toString();
 
         if (!nome.isEmpty() && !quantidade.isEmpty()) {
-            int quantidadeEstoque = Integer.parseInt(quantidade);
+            long quantidadeEstoque = Long.parseLong(quantidade);
             Produto produto = new Produto(nome, quantidadeEstoque);
 
             //fazemos a chamada do método atraves do viewmodel

@@ -1,10 +1,20 @@
 package br.digitalhouse.padraoarquitetura.repository;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import br.digitalhouse.padraoarquitetura.model.Produto;
+import br.digitalhouse.padraoarquitetura.model.ProdutoResponse;
 import br.digitalhouse.padraoarquitetura.repository.data.ProdutoDataBase;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 public class ProdutoRepository {
 
@@ -28,4 +38,24 @@ public class ProdutoRepository {
     public Produto retornaProdutoPorNome(String nome, Context context){
         return ProdutoDataBase.getDatabase(context).produtoDAO().getProdutoPorNomeBd(nome);
     }
+
+    public Single<ProdutoResponse> getProdutosDoArquivo(Context context) {
+
+        try {
+            AssetManager manager = context.getAssets();
+            InputStream newJson = manager.open("produtos.json");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(newJson));
+
+            Gson gson = new Gson();
+
+            ProdutoResponse produtoResponse = gson.fromJson(reader, ProdutoResponse.class);
+
+            return Single.just(produtoResponse);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Single.error(e);
+        }
+    }
+
 }
