@@ -1,0 +1,48 @@
+{
+    "produtos": [{
+        "id": 1,
+        "nome": "Alcool em Gel",
+        "quantidade": 1
+    },
+    {
+        "id": 2,
+        "nome": "Lenços",
+        "quantidade": 20
+    },
+    {
+        "id": 3,
+        "nome": "Escova de dentes",
+        "quantidade": 32
+    },
+    {
+        "id": 4,
+        "nome": "Creme para barbear",
+        "quantidade": 11
+    },
+    {
+        "id": 5,
+        "nome": "Dipirona",
+        "quantidade": 2
+    },
+    {
+        "id": 6,
+        "nome": "Paracetamol",
+        "quantidade": 6
+    },
+    {
+        "id": 7,
+        "nome": "Bronzeador",
+        "quantidade": 9
+    },
+    {
+        "id": 8,
+        "nome": "Desodorante",
+        "quantidade": 18
+    },
+    {
+        "id": 9,
+        "nome": "Whey Proten",
+        "quantidade": 7
+    }
+]
+}
