@@ -1,9 +1,17 @@
 package com.example.albunsmusicasapp.network;
 
+import com.example.albunsmusicasapp.BuildConfig;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+import java.util.concurrent.TimeUnit;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class ArtistaService {
 
     private static final String BASE_URL = "https://theaudiodb.com/api/v1/json/";
-    private static final String API_KEY= "195003/";
     private static Retrofit retrofit;
 
     private static Retrofit getRetrofit() {
@@ -27,7 +35,7 @@ public class ArtistaService {
 
             // inicializamos o retrofit com as configurações
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL+API_KEY)
+                    .baseUrl(BASE_URL)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
@@ -38,7 +46,7 @@ public class ArtistaService {
     }
 
     // Retornamos a api criada com o retrofit
-    public static API getApiService() {
-        return getRetrofit().create(API.class);
+    public static ArtistaAPI getApiService() {
+        return getRetrofit().create(ArtistaAPI.class);
     }
 }
