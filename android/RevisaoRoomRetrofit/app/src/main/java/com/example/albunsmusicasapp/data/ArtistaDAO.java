@@ -1,10 +1,12 @@
 package com.example.albunsmusicasapp.data;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.albunsmusicasapp.model.Album;
+import com.example.albunsmusicasapp.model.ArtistaResult;
 
 import java.util.List;
 
@@ -14,9 +16,12 @@ import io.reactivex.Flowable;
 public interface ArtistaDAO {
 
     @Insert
-    void insereListaBD(Album album);
+    void insereListaBD(List<Album> listaAlbum);
 
     @Query("SELECT * FROM album")
-    Flowable<List<Album>> recuperaAlbunsDoBD();
+    Flowable<ArtistaResult> recuperaAlbunsDoBD();
+
+    @Delete
+    void apagaTodosAlbuns();
 
 }
