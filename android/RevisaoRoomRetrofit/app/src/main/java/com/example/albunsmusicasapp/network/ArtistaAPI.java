@@ -2,15 +2,15 @@ package com.example.albunsmusicasapp.network;
 
 import com.example.albunsmusicasapp.model.ArtistaResult;
 
-import java.util.List;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ArtistaAPI {
 
-    @GET("searchalbum.php")
-    Observable<ArtistaResult> retornaArtistaApi(String nomeBanda);
-
+    @GET("{APIKEY}/searchalbum.php")
+    Observable<ArtistaResult> retornaArtistaApi(
+            @Path("APIKEY") String apiKey,
+            @Query("s") String nomeBanda);
 }
