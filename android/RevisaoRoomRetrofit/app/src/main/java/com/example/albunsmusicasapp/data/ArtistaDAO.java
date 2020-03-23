@@ -3,6 +3,7 @@ package com.example.albunsmusicasapp.data;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.albunsmusicasapp.model.Album;
@@ -15,13 +16,12 @@ import io.reactivex.Flowable;
 @Dao
 public interface ArtistaDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insereListaBD(List<Album> listaAlbum);
 
-    @Query("SELECT * FROM album")
+    @Query("SELECT * FROM artista")
     Flowable<ArtistaResult> recuperaAlbunsDoBD();
 
     @Delete
-    void apagaTodosAlbuns();
-
+    void apagaDadosBd(ArtistaResult artistaResult);
 }
