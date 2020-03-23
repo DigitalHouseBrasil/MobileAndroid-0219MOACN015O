@@ -1,18 +1,14 @@
 package com.example.albunsmusicasapp.viewmodel;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.albunsmusicasapp.model.Album;
 import com.example.albunsmusicasapp.model.ArtistaResult;
 import com.example.albunsmusicasapp.repository.ArtistaRepository;
-
 import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -69,15 +65,14 @@ public class ArtistaViewModel extends AndroidViewModel {
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(subscription -> mutableLiveDataLoading.setValue(true))
                         .doAfterTerminate(() -> mutableLiveDataLoading.setValue(false))
-                        .subscribe(artistaResult ->
-                                        mutableLiveDataAlbum.setValue(artistaResult.getAlbum()),
+                        .subscribe(albumList ->
+                                        mutableLiveDataAlbum.setValue(albumList),
                                 throwable ->
-                                        mutableLiveDataErro.setValue(throwable.getMessage()))
+                                        mutableLiveDataErro.setValue(throwable.getMessage() + "problema banco de dados"))
         );
     }
 
     private ArtistaResult insereDadosBd(ArtistaResult artistaResult) {
-        repository.apagaOsDadosBD(artistaResult, getApplication());
         repository.insereArtistaResultBd(artistaResult.getAlbum(), getApplication());
         return artistaResult;
     }

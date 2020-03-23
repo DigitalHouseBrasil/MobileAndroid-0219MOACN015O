@@ -19,8 +19,8 @@ public interface ArtistaDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insereListaBD(List<Album> listaAlbum);
 
-    @Query("SELECT * FROM artista")
-    Flowable<ArtistaResult> recuperaAlbunsDoBD();
+    @Query("SELECT * FROM album")
+    Flowable<List<Album>> recuperaAlbunsDoBD();
 
     @Delete
     void apagaDadosBd(ArtistaResult artistaResult);

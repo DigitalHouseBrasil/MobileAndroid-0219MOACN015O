@@ -11,7 +11,7 @@ import androidx.room.TypeConverters;
 import com.example.albunsmusicasapp.model.Album;
 import com.example.albunsmusicasapp.model.ArtistaResult;
 
-@Database(entities = {Album.class, ArtistaResult.class}, version = 2, exportSchema = false)
+@Database(entities = {Album.class, ArtistaResult.class}, version = 3, exportSchema = false)
 @TypeConverters(ArtistaTypeConverter.class)
 public abstract class ArtistaDataBase extends RoomDatabase {
 

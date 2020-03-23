@@ -70,11 +70,6 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String novoTexto) {
-//                if (novoTexto.length() > 3) {
-//                    nomeBanda = novoTexto;
-//                    adapter.limpaListaAdapter();
-//                    viewModel.recuperaOsDadosApi(nomeBanda);
-//                }
                 return false;
             }
         });
