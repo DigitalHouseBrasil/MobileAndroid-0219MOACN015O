@@ -64,7 +64,6 @@ dependencies {
 
     // Firebase login
     implementation 'com.google.firebase:firebase-auth:19.3.0'
-    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
 
     // Firebase Database
     implementation 'com.google.firebase:firebase-database:19.2.1'
@@ -81,5 +80,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 
-//TODO: aplicar plugin play services
+apply plugin: 'com.google.gms.google-services'
 

@@ -10,12 +10,13 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import br.com.digitalhouse.firebaseapp.R;
 
@@ -57,9 +58,20 @@ public class RegisterFragment extends Fragment {
     private void registrarUsuario(String email, String password) {
         progressBar.setVisibility(View.VISIBLE);
 
-        //Fazer registro do usuátio no firebase
-        NavHostFragment.findNavController(this)
-                .navigate(R.id.action_registerFragment_to_homeFragment);
+        // seta o loading para true para dar feedback ao uauário, que terminou o cadastro
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Se conseguiu se registrar com sucesso vamos para a home
+                        NavHostFragment.findNavController(this)
+                                .navigate(R.id.action_registerFragment_to_homeFragment);
+                    } else {
+                        // Se deu algum erro mostramos para o usuário a mensagem
+                        Snackbar.make(btnRegister, "Erro ao cadastrar usuário -> " + task.getException().getMessage(), Snackbar.LENGTH_SHORT).show();
+                    }
+
+                    progressBar.setVisibility(View.GONE);
+                });
     }
 
     // Essa validação pode ficar na view em vez do viewmodel, pois ela trata os elementos da tela

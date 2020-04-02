@@ -15,10 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.login.LoginManager;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +124,8 @@ public class HomeFragment extends Fragment implements RecyclerViewClick, Favorit
     }
 
     private void logout() {
-
+        LoginManager.getInstance().logOut();
+        FirebaseAuth.getInstance().signOut();
+        NavHostFragment.findNavController(this).popBackStack();
     }
 }
