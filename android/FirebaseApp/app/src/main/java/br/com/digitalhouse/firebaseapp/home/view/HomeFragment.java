@@ -30,11 +30,10 @@ import br.com.digitalhouse.firebaseapp.R;
 import br.com.digitalhouse.firebaseapp.adapters.RecyclerViewAdapter;
 import br.com.digitalhouse.firebaseapp.favorites.view.FavoritesActivity;
 import br.com.digitalhouse.firebaseapp.home.viewmodel.HomeViewModel;
-import br.com.digitalhouse.firebaseapp.interfaces.FavoriteItemClick;
 import br.com.digitalhouse.firebaseapp.interfaces.RecyclerViewClick;
 import br.com.digitalhouse.firebaseapp.model.Result;
 
-public class HomeFragment extends Fragment implements RecyclerViewClick, FavoriteItemClick {
+public class HomeFragment extends Fragment implements RecyclerViewClick {
 
     private RecyclerView recyclerView;
     private List<Result> results = new ArrayList<>();
@@ -85,7 +84,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClick, Favorit
     private void initViews(View view) {
         recyclerView = view.findViewById(R.id.recyclerview);
         progressBar = view.findViewById(R.id.progress_bar);
-        adapter = new RecyclerViewAdapter(results, this, this);
+        adapter = new RecyclerViewAdapter(results, this);
         viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
@@ -93,10 +92,6 @@ public class HomeFragment extends Fragment implements RecyclerViewClick, Favorit
     @Override
     public void clickListener(Result result) {
         Toast.makeText(getContext(), "ID " + result.getTitle(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void removeFavoriteClickListener(Result result) {
         viewModel.salvarFavorito(result);
     }
 

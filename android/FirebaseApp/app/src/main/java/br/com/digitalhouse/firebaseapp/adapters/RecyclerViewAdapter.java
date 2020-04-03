@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import br.com.digitalhouse.firebaseapp.R;
-import br.com.digitalhouse.firebaseapp.interfaces.FavoriteItemClick;
 import br.com.digitalhouse.firebaseapp.interfaces.RecyclerViewClick;
 import br.com.digitalhouse.firebaseapp.model.Result;
 
@@ -22,12 +21,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private List<Result> results;
     private RecyclerViewClick listener;
-    private FavoriteItemClick favoriteItemClick;
 
-    public RecyclerViewAdapter(List<Result> results, RecyclerViewClick listener, FavoriteItemClick favoriteItemClick) {
+    public RecyclerViewAdapter(List<Result> results, RecyclerViewClick listener) {
         this.results = results;
         this.listener = listener;
-        this.favoriteItemClick = favoriteItemClick;
     }
 
     @NonNull
@@ -43,7 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         viewHolder.bind(result);
 
         viewHolder.itemView.setOnClickListener(v -> listener.clickListener(result));
-        viewHolder.imageFavorite.setOnClickListener(v -> favoriteItemClick.removeFavoriteClickListener(result));
+        viewHolder.imageFavorite.setOnClickListener(v -> listener.clickListener(result));
     }
 
     //método que atualiza a lista do adapter
