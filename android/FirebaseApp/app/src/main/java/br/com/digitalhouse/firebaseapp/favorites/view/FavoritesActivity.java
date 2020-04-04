@@ -26,6 +26,12 @@ public class FavoritesActivity extends AppCompatActivity implements FavoriteItem
     private RecyclerView recyclerView;
     private FavoritesViewAdapter adapter;
 
+    // Pegamos a instancia do firebase, objeto necessario para salvar no banco de dados
+    FirebaseDatabase database;
+
+    // pegamos a referencia para onde no firebase queremos salvar nossos dados
+    DatabaseReference reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,26 +41,56 @@ public class FavoritesActivity extends AppCompatActivity implements FavoriteItem
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         adapter = new FavoritesViewAdapter(new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
+
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference(AppUtil.getIdUsuario(getApplication()) + "/favorites");
+
         carregarFavoritos();
     }
 
     private void carregarFavoritos() {
-        // Pegamos a instancia do firebase, objeto necessario para salvar no banco de dados
-
-        // pegamos a referencia para onde no firebase queremos salvar nossos dados
-
-
         // Adicionamos o loistener par pegar os resultados do firebase
+        reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Lista vazia pra pegar os resultados do firebase
+                List<Result> results = new ArrayList<>();
+
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Result result = child.getValue(Result.class);
+                    results.add(result);
+                }
+
+                adapter.update(results);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
     public void removeFavoriteClickListener(Result result) {
-
-        // Pegamos a instancia do firebase, objeto necessario para salvar no banco de dados
-
-        // pegamos a referencia para onde no firebase queremos salvar nossos dados
-
         // Adicionamos o listener par pegar os resultados do firebase
+        reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+
+                    if (child.getValue(Result.class).getId().equals(result.getId())) {
+                        child.getRef().removeValue();
+                        adapter.removeItem(result);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }

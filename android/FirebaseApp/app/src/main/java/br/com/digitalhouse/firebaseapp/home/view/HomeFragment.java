@@ -1,6 +1,7 @@
 package br.com.digitalhouse.firebaseapp.home.view;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -72,10 +73,23 @@ public class HomeFragment extends Fragment implements RecyclerViewClick {
             }
         });
 
+        //Obeservamos o retorno de quando um item foi adicionado
         viewModel.favoriteAdded.observe(getViewLifecycleOwner(), result -> {
             if (result != null) {
-                Snackbar.make(recyclerView, result.getTitle() + " Adicionado as favoritos", Snackbar.LENGTH_LONG).show();
+
+                //Criamos uma instancia do snackbar e mudamos a cor para mostrar o sucesso
+                Snackbar snackbar = Snackbar.make(recyclerView, result.getTitle() + ": Adicionado as favoritos", Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor( Color.parseColor("#4CAF50"));
+                snackbar.show();
             }
+        });
+
+        //Obeservamos o retorno de quando ouve um erro
+        viewModel.resultLiveDataError.observe(getViewLifecycleOwner(), error -> {
+            //Criamos uma instancia do snackbar e mudamos a cor para mostrar o erro
+            Snackbar snackbar = Snackbar.make(recyclerView, error.getMessage(), Snackbar.LENGTH_LONG);
+            snackbar.getView().setBackgroundColor(Color.RED);
+            snackbar.show();
         });
     }
 
@@ -91,7 +105,6 @@ public class HomeFragment extends Fragment implements RecyclerViewClick {
 
     @Override
     public void clickListener(Result result) {
-        Toast.makeText(getContext(), "ID " + result.getTitle(), Toast.LENGTH_SHORT).show();
         viewModel.salvarFavorito(result);
     }
 

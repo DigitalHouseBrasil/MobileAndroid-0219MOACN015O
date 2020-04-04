@@ -1,7 +1,6 @@
 package br.com.digitalhouse.firebaseapp.home.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -22,7 +21,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
 import static br.com.digitalhouse.firebaseapp.network.RetrofitService.API_KEY;
 import static br.com.digitalhouse.firebaseapp.network.RetrofitService.getApiService;
 
@@ -58,19 +56,68 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void salvarFavorito(Result result) {
         // Pegamos a instancia do firebase, objeto necessario para salvar no banco de dados
-
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         // pegamos a referencia para onde no firebase queremos salvar nossos dados
+        DatabaseReference reference = database.getReference(AppUtil.getIdUsuario(getApplication()) + "/favorites");
 
+        //Verifica no firebase se já existe o objeto como id
+        reference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                //Variável de controle
+                boolean existe = false;
+
+                // Quando retornar algo do firebase percorremos os dados e validamos
+                for (DataSnapshot resultSnapshot : dataSnapshot.getChildren()) {
+                    Result firebaseResult = resultSnapshot.getValue(Result.class);
+
+                    //Verifica se o dado já existe
+                    if (firebaseResult != null &&
+                            firebaseResult.getId() != null &&
+                            firebaseResult.getId().equals(result.getId())) {
+                        existe = true;
+                    }
+                }
+
+                // Se existe no firebase mostramos a mensagem de já existente
+                if (existe) {
+                    resultLiveDataError.setValue(new Throwable(result.getTitle() + ": Já existe no Firebase"));
+                } else {
+                    salvarFavoritoVerificado(reference, result);
+                }
+            }
+
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    // Registra o usuário na base de dados do Firebase
+    private void salvarFavoritoVerificado(DatabaseReference reference, Result result) {
         // criamos uma chave unica para o item, assim não haverá conflitos
-
+        String key = reference.push().getKey();
 
         // setamos o item no caminho da chave criada ex: favorites/kfdhsifyadfhidf/filme
-
+        reference.child(key).setValue(result);
 
         // Adicionnamos um listener pra sabermos se o item foi salvo no firebase
+        reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                Result result1 = dataSnapshot.getValue(Result.class);
+
+                // mostamos qe foi salvo nos favoritos
+                favoriteAdded.setValue(result1);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     @Override
