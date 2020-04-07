@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 29
@@ -60,7 +61,7 @@ dependencies {
 
     //TODO:  dependencias para Firebase, Google Facebook
     // Firebase Analytics
-    implementation 'com.google.firebase:firebase-core:17.2.3'
+    implementation 'com.google.firebase:firebase-core:17.3.0'
 
     // Firebase login
     implementation 'com.google.firebase:firebase-auth:19.3.0'
@@ -74,6 +75,10 @@ dependencies {
     // Google login
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
+    // Add the Firebase SDK for Crashlytics.
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta03'
+
+    implementation 'com.google.firebase:firebase-messaging:20.1.5'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

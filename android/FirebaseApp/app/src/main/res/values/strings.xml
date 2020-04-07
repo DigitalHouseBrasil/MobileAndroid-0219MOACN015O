@@ -22,4 +22,7 @@
     <string name="facebook_app_id">224217835492294</string>
     <string name="fb_login_protocol_scheme">fb224217835492294</string>
 
+    <!--CHANNEL NOTIFICATION -->
+    <string name="default_notification_channel_id">digitalhouse</string>
+
 </resources>
