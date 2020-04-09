@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.facebook.login.LoginManager;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,8 @@ import br.com.digitalhouse.firebaseapp.favorites.view.FavoritesActivity;
 import br.com.digitalhouse.firebaseapp.home.viewmodel.HomeViewModel;
 import br.com.digitalhouse.firebaseapp.interfaces.RecyclerViewClick;
 import br.com.digitalhouse.firebaseapp.model.Result;
+import br.com.digitalhouse.firebaseapp.util.AppUtil;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment implements RecyclerViewClick {
 
@@ -41,6 +45,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClick {
     private HomeViewModel viewModel;
     private ProgressBar progressBar;
     private RecyclerViewAdapter adapter;
+    private CircleImageView imageViewUser;
 
     @Override
     public View onCreateView(
@@ -79,7 +84,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClick {
 
                 //Criamos uma instancia do snackbar e mudamos a cor para mostrar o sucesso
                 Snackbar snackbar = Snackbar.make(recyclerView, result.getTitle() + ": Adicionado as favoritos", Snackbar.LENGTH_LONG);
-                snackbar.getView().setBackgroundColor( Color.parseColor("#4CAF50"));
+                snackbar.getView().setBackgroundColor(Color.parseColor("#4CAF50"));
                 snackbar.show();
             }
         });
@@ -91,6 +96,27 @@ public class HomeFragment extends Fragment implements RecyclerViewClick {
             snackbar.getView().setBackgroundColor(Color.RED);
             snackbar.show();
         });
+
+        loadImageFromFirebase();
+    }
+
+    private void loadImageFromFirebase() {
+        // Pegamos a referencia do storage para pergar a foto do usuário
+        StorageReference storage = FirebaseStorage
+                .getInstance()
+                .getReference()
+                .child(AppUtil.getIdUsuario(getContext()) + "/image/profile/imagem-perfil");
+
+        // Pegamos a url da imagem para o Picasso poder carregar a foto
+        storage.getDownloadUrl()
+                .addOnSuccessListener(uri -> {
+
+                    // Mandamos o Picasso carregar a imagem com a url que veio d firebase
+                    Picasso.get()
+                            .load(uri)
+                            .rotate(90) // Rotaciono a imagem em 90º
+                            .into(imageViewUser);
+                });
     }
 
 
@@ -98,6 +124,7 @@ public class HomeFragment extends Fragment implements RecyclerViewClick {
     private void initViews(View view) {
         recyclerView = view.findViewById(R.id.recyclerview);
         progressBar = view.findViewById(R.id.progress_bar);
+        imageViewUser = view.findViewById(R.id.imageview_user_login);
         adapter = new RecyclerViewAdapter(results, this);
         viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
