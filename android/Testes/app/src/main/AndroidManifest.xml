@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AulaActivity"></activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

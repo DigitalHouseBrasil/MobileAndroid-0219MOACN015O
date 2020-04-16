@@ -10,8 +10,8 @@ import android.widget.EditText;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText email, senha;
-    private Button btnEntrar;
+    EditText email, senha;
+    Button btnEntrar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +26,22 @@ public class LoginActivity extends AppCompatActivity {
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, AulaActivity.class));
+                String emailResultado = email.getText().toString();
+                String senhaResultado = senha.getText().toString();
+
+                validaEmailSenha(emailResultado, senhaResultado);
             }
         });
+    }
+
+    public boolean validaEmailSenha(String emailResultado, String senhaResultado) {
+        if (!emailResultado.isEmpty() && !senhaResultado.isEmpty()){
+            startActivity(new Intent(LoginActivity.this, AulaActivity.class));
+            return true;
+        }else{
+            email.setError("Preencha o campo de email");
+            senha.setError("Preencha o campo de senha");
+            return false;
+        }
     }
 }

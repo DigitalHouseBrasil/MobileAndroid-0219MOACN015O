@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     private ImageView imgSplash;
     private Timer timer = new Timer();
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 jump();
             }
         });
-        //chamada do método que  irá temporizar a duração da tela de splash
+
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void jump(){
         timer.cancel();
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
         finish();
 
     }
