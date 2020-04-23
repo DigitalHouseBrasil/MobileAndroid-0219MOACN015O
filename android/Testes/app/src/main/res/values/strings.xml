@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AulaTestes</string>
+    <string name="email">Email</string>
+    <string name="aula_de_testes">Aula de Testes</string>
+</resources>
