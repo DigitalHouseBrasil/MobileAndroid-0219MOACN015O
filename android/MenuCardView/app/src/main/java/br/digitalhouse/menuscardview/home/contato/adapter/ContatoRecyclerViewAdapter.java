@@ -71,6 +71,8 @@ public class ContatoRecyclerViewAdapter extends RecyclerView.Adapter<ContatoRecy
 
         public void onBind(Contato contato){
             nomeContato.setText(contato.getNome());
+
+            nomeContato.getText().toString();
             telefoneContato.setText(contato.getTelefone());
         }
     }

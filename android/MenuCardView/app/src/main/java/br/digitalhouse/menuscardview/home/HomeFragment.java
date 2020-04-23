@@ -99,6 +99,7 @@ public class HomeFragment extends Fragment implements ContatoListener {
 
         replaceFragment(fragment);
 
+
     }
 
     private void replaceFragment(Fragment fragment){
