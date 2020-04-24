@@ -1,4 +1,4 @@
-package com.example.kotlinapp
+package br.com.filmes
 
 import org.junit.Test
 
